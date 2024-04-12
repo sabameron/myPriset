@@ -15,6 +15,8 @@ fi
 # URLの入力を取得
 read -p "MinecraftサーバーのダウンロードURLを入力してください: " URL
 
+beforeBCFolder=$(cat 00_beforeBcName.txt)
+echo 一つ前のバージョンは$beforeBCFolder
 # URLからファイル名を抽出してNEWFに設定
 NEWF=$(basename $URL)
 NEWF=${NEWF%.zip}
@@ -34,7 +36,7 @@ else
 fi
 
 # ダウンロードしたファイルを取得
-wget $URL
+wget $URL --no-check-certificate
 
 mkdir $NEWF
 mv $NEWF.zip $NEWF/
@@ -54,7 +56,14 @@ cp -r $OLDF/applogs $NEWF
 
 echo "コピー終わりましたので、zip化します。"
 
-zip BC_$OLDF.zip $OLDF
-rm -r $OLDF
+zip -r BC_$OLDF.zip $OLDF
+mv $OLDF bc_$OLDF
+
+# ふたつ前のバックアップフォルダを削除
+ls -al
+rm -r $beforeBCFolder
+ls -al
+echo bc_$OLDF > 00_beforeBcName.txt
+
 
 echo "完了しました！古いデータが削除されていることを確認してサーバーを起動してください。"
