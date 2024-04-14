@@ -42,7 +42,10 @@ mkdir $NEWF
 mv $NEWF.zip $NEWF/
 cd $NEWF
 
+sleep 1
 unzip $NEWF.zip
+sleep 2
+rm $NEWF.zip
 
 cd ..
 
@@ -63,7 +66,7 @@ mv $OLDF bc_$OLDF
 ls -al
 rm -r $beforeBCFolder
 ls -al
-echo bc_$OLDF > 00_beforeBcName.txt
+echo 00_bc_$OLDF > 00_beforeBcName.txt
 
 
 echo "完了しました！古いデータが削除されていることを確認してサーバーを起動してください。"
