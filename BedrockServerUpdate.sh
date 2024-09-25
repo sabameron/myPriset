@@ -13,16 +13,18 @@ else
 fi
 
 # URLの入力を取得
-read -p "MinecraftサーバーのダウンロードURLを入力してください: " URL
+# read -p "MinecraftサーバーのダウンロードURLを入力してください: " URL
+read -p "ダウンロードしたzipのファイル名(拡張子なし)を記入してください。" NEWF
 
 beforeBCFolder=$(cat 00_beforeBcName.txt)
 echo 一つ前のバージョンは$beforeBCFolder
 # URLからファイル名を抽出してNEWFに設定
-NEWF=$(basename $URL)
+# NEWF=$(basename $URL)
 NEWF=${NEWF%.zip}
 
 # bedrock-server- で始まるフォルダを取得
-folders=($(ls -d bedrock-server-*))
+# folders=($(ls -d bedrock-server-*))
+folders=($(ls -d bedrock-server-* | grep -v "$NEWF.zip"))
 num_folders=${#folders[@]}
 
 if [[ $num_folders -gt 1 ]]; then
@@ -36,7 +38,7 @@ else
 fi
 
 # ダウンロードしたファイルを取得
-wget $URL --no-check-certificate
+# wget $URL --no-check-certificate
 
 mkdir $NEWF
 mv $NEWF.zip $NEWF/
