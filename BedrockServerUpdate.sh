@@ -62,7 +62,7 @@ cp -r $OLDF/applogs $NEWF
 echo "コピー終わりましたので、zip化します。"
 
 zip -r BC_$OLDF.zip $OLDF
-mv $OLDF bc_$OLDF
+mv $OLDF 00_bc_$OLDF
 
 # ふたつ前のバックアップフォルダを削除
 ls -al
